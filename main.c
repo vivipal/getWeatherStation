@@ -196,8 +196,20 @@ float * process_data(char **msg, char *trameIndicator,int len){
 
 int main(int argc, char const *argv[]){                     // run over and over again
 
+
+  char *serial_device = malloc(30);
+  char *binary_file_path = malloc(50);
+  if (argc<2){
+    serial_device = "/dev/ttyUSB0";
+    binary_file_path = "./";
+  }else if(argc==2){
+    strcpy(serial_device, argv[1]);
+    binary_file_path = "./";
+  } else {
+    strcpy(serial_device, argv[1]);
+    strcpy(binary_file_path, argv[2]);
+  }
   // open serial communication
-  char serial_device[] = "/dev/ttyUSB0";
   int fd = open_port(serial_device);
   set_baudrate(fd);
 
@@ -228,7 +240,7 @@ int main(int argc, char const *argv[]){                     // run over and over
 
     FILE * fptr;
     // clock_t start = clock();
-    fptr = fopen(strcat(trameIndicator,".bin"),"wb");
+    fptr = fopen(strcat(binary_file_path,strcat(trameIndicator,".bin")),"wb");
     fwrite(data,sizeof(float),len,fptr);
     fclose(fptr);
     // clock_t end = clock();
