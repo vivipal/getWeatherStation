@@ -225,33 +225,37 @@ int main(int argc, char const *argv[]){                     // run over and over
     char * trameIndicator = get_sentence(&pTempMessage);
     int len = get_len(trameIndicator);
 
+    if (len>0){
 
-    float *data;
-    data = process_data(&pTempMessage,trameIndicator,len);
+      float *data;
+      data = process_data(&pTempMessage,trameIndicator,len);
 
 
-    printf("%s data : ", trameIndicator);
-    for (int i=0;i<len;i++){
-      printf("%f",*(data+i));
-      printf(" | ");
+      printf("%s data : ", trameIndicator);
+      for (int i=0;i<len;i++){
+          printf("%f",*(data+i));
+          printf(" | ");
+      }
+      printf("\n");
+
+
+      // clock_t start = clock();
+      char * new_filename = malloc(100);
+      strcpy(new_filename,binary_file_path);
+      strcat(new_filename,trameIndicator);
+      strcat(new_filename,".bin");
+
+
+      FILE * fptr;
+      fptr = fopen(new_filename,"wb");
+      fwrite(data,sizeof(float),len,fptr);
+      fclose(fptr);
+      // clock_t end = clock();
+
+      // double time_taken = (double)((end - start) / (CLOCKS_PER_SEC));
+      // printf("%f s\n", time_taken );
+
     }
-    printf("\n");
-
-
-    FILE * fptr;
-    // clock_t start = clock();
-    char * new_filename = malloc(50);
-    strcpy(new_filename,binary_file_path);
-    strcat(new_filename,trameIndicator);
-    strcat(new_filename,".bin");
-
-    fptr = fopen(new_filename,"wb");
-    fwrite(data,sizeof(float),len,fptr);
-    fclose(fptr);
-    // clock_t end = clock();
-
-    // double time_taken = (double)((end - start) / (CLOCKS_PER_SEC));
-    // printf("%f s\n", time_taken );
 
 
     printf("------------------\n");
