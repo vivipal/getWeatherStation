@@ -240,7 +240,12 @@ int main(int argc, char const *argv[]){                     // run over and over
 
     FILE * fptr;
     // clock_t start = clock();
-    fptr = fopen(strcat(binary_file_path,strcat(trameIndicator,".bin")),"wb");
+    char * new_filename = malloc(50);
+    strcpy(new_filename,binary_file_path);
+    strcat(new_filename,trameIndicator);
+    strcat(new_filename,".bin");
+
+    fptr = fopen(new_filename,"wb");
     fwrite(data,sizeof(float),len,fptr);
     fclose(fptr);
     // clock_t end = clock();
