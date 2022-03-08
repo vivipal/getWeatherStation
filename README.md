@@ -20,6 +20,23 @@ int GPRMC_indx[GPRMC_len] = {0,1,2,3,4,5,6,7,8};
 
 The program finally stores last selected data from each sentence in a binary file (one for each sentence *WIMDA.bin*, *GPRMC.bin* and *HCHDG.bin*)
 
+
+# How to compile it :
+
+```console
+gcc main.c -o getWS.exe
+```
+
+# How to run it :
+
+```console
+./getWS.exe
+
+# OR by providing device and path to save data :
+
+./getWS.exe /dev/[your_device] [path_to_save_the_file]
+```
+
 # Selected data
 
 Here are the default selected data for each sentence
